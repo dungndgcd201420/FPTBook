@@ -1,5 +1,36 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Book>
+<h1>Index of Todo</h1>
+
+
+<div class="form-group">
+    <a asp-controller="Todoes"
+       asp-action="Create" class="btn btn-primary">Create new Todo</a>
+</div>
+
+<div class="form-group">
+    <form>
+        <input type="text" name="category" placeholder="Search by Category" />
+        <button type="submit" class="btn btn-primary">Search</button>
+    </form>
+</div>
+
+
+<table class="table">
+    <thead>
+    <th scope="col">ID</th>
+    <th scope="col">Description</th>
+    <th scope="col">Status</th>
+    <th scope="col">Genre</th>
+    <th scope="col">Action</th>
+    </thead>
+      @foreach (var item in Model){
+      <tr>
+      <th scope="row">@item.BookId</th>
+      <td>@item.Description</td>
+      <td>@item.Status.ToString()</td>
+      <td>@item.Description</td>
+          
+    </tr>
+    }
+    </tbody>
+</table>

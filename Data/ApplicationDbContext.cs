@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using FPTBook.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -13,5 +14,7 @@ namespace FPTBook.Data
     {
 
     }
+    public DbSet<Book> Books { get; set; }
+    public DbSet<Genre> Genres { get; set; }
   }
 }
