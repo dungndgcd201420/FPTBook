@@ -18,6 +18,7 @@
 <table class="table">
     <thead>
     <th scope="col">ID</th>
+    <th scope="col">Title</th>
     <th scope="col">Description</th>
     <th scope="col">Status</th>
     <th scope="col">Genre</th>
@@ -28,6 +29,7 @@
       @foreach (var item in Model){
      <tr>
             <th scope="row">@item.BookId</th>
+                <td>@item.Title</td>
             <td>@item.Description</td>
             <td>@item.Status.ToString()</td>
             <td>@item.Genre.Description</td>

@@ -1,5 +1,31 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@using FPTBook.ViewModels
+@model BookGenreViewModel
+
+<h1>Create a new Book </h1>
+
+
+<form asp-controller="StoreOwner" asp-action="Insert" method="post">
+  <div class="form-group">
+        <label>Title</label>
+        <input asp-for="Book.Title" class="form-control" placeholder="Todo Description ..." />
+        <span asp-validation-for="Book.Title" class="text-danger"></span>
+        <label>Description</label>
+        <input asp-for="Book.Description" class="form-control" placeholder="Todo Description ..." />
+        <span asp-validation-for="Book.Description" class="text-danger"></span>
+        <label>Price</label>
+        <input asp-for="Book.Price" class="form-control" placeholder="Todo Description ..." />
+        <span asp-validation-for="Book.Price" class="text-danger"></span>
+
+<div class="form-group">
+    <label>Genre</label>
+            <select asp-for="Book.GenreId"
+                    asp-items="@(new SelectList(Model.Genres, "Id", "Description"))"
+                    class="form-control">
+            </select>
+</div>
+
+  </div>
+<div class="form-group">
+    <button type="submit" class="btn btn-primary">Create</button>
+    </div>
+</form>
