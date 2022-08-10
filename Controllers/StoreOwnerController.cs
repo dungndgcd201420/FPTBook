@@ -55,5 +55,52 @@ namespace FPTBook.Controllers
       _context.SaveChanges();
       return RedirectToAction("Index");
     }
+
+    [HttpGet]
+    public IActionResult Update(int id)
+    {
+      var todoInDb = _context.Books.SingleOrDefault(t => t.BookId == id);
+      if (todoInDb is null)
+      {
+        return NotFound();
+      }
+
+      var viewModel = new BookGenreViewModel()
+      {
+        Book = todoInDb,
+        Genres = _context.Genres.ToList()
+      };
+      return View(viewModel);
+    }
+    [HttpPost]
+    public IActionResult Update(BookGenreViewModel viewModel)
+    {
+      var todoInDb = _context.Books.SingleOrDefault(t => t.BookId == viewModel.Book.BookId);
+      if (todoInDb is null)
+      {
+        return BadRequest();
+      }
+      if (!ModelState.IsValid)
+      {
+        viewModel = new BookGenreViewModel()
+        {
+          Book = viewModel.Book,
+          Genres = _context.Genres.ToList()
+        };
+        return View(viewModel);
+      }
+      todoInDb.Title = viewModel.Book.Title;
+      todoInDb.Description = viewModel.Book.Description;
+      todoInDb.Status = viewModel.Book.Status;
+      todoInDb.Price = viewModel.Book.Price;
+      todoInDb.GenreId = viewModel.Book.GenreId;
+
+      _context.SaveChanges();
+
+      return RedirectToAction("Index");
+    }
   }
+
+ 
 }
+
