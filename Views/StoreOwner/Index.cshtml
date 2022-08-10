@@ -22,15 +22,21 @@
     <th scope="col">Status</th>
     <th scope="col">Genre</th>
     <th scope="col">Action</th>
+    <th scope="col"></th>
     </thead>
+    <tbody>
       @foreach (var item in Model){
-      <tr>
-      <th scope="row">@item.BookId</th>
-      <td>@item.Description</td>
-      <td>@item.Status.ToString()</td>
-      <td>@item.Description</td>
-          
-    </tr>
+     <tr>
+            <th scope="row">@item.BookId</th>
+            <td>@item.Description</td>
+            <td>@item.Status.ToString()</td>
+            <td>@item.Genre.Description</td>
+            <td><button class="btn btn-primary">Details</button>
+            <button class="btn btn-danger">Delete</button>
+            <button class="btn btn-danger">Edit</button></td>
+     </tr>
+     
+       
     }
     </tbody>
 </table>

@@ -1,6 +1,7 @@
 ﻿using FPTBook.Data;
 using FPTBook.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +16,9 @@ namespace FPTBook.Controllers
     }
     public IActionResult Index()
         {
-      IEnumerable<Book> books = _context.Books.ToList();
+      IEnumerable<Book> books = _context.Books
+       .Include(t => t.Genre)
+        .ToList();
       return View(books);
     }
     }
