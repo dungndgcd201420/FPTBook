@@ -16,7 +16,7 @@ namespace FPTBook.Models
         public float Price { get; set; }
         [StringLength(255)]
         public string Description { get; set; }
-        public BookStatus Status { get; set; } 
+        public BookStatus BookStatus { get; set; } 
         [Required]
         [ForeignKey("Genre")]
         public int GenreId { get; set; }

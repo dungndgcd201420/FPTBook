@@ -2,7 +2,31 @@
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    .container{
+       position: relative;
+    }
+    .hero-image{
+       filter: blur(2px);
+       width: 100%;
+    }
+    .hero-text{
+       text-align: center;
+       position: absolute;
+       top: 50%;
+       left: 50%;
+       transform: translate(-50%, -50%);
+       color: white;
+    }
+</style>
+
+
+
+<div class="container">
+  <img class="hero-image" src="https://images.pexels.com/photos/214659/pexels-photo-214659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+  <div class="hero-text">
+    <h1 class="display-2">FPTBook</h1>
+    <p class="display-4">All you can find</p>
+    <a class="btn btn-primary">Shop Now</a>
+  </div>
 </div>
