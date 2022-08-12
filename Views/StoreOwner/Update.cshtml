@@ -2,30 +2,35 @@
 @using FPTBook.ViewModels
 @model BookGenreViewModel
 
-<h1>Create a new Todo</h1>
+<h1 class="display-1">Update book's details</h1>
 
 <form asp-controller="StoreOwner" asp-action="Update" method="post">
     <input asp-for="@Model.Book.BookId" type="hidden" value="@Model.Book.BookId" />
+
     <div class="form-group">
         <label>Title</label>
- <input asp-for="Book.Title" class="form-control" placeholder="Book Title" />
-    <span asp-validation-for="Book.Title" class="text-danger"></span>
-  </div>
+        <input asp-for="Book.Title" class="form-control" placeholder="Book Title" />
+        <span asp-validation-for="Book.Title" class="text-danger"></span>
+    </div>
+
     <div class="form-group">
-        <label>Description</label>
-        <input asp-for="Book.Author" class="form-control" placeholder="Book Description" />
+        <label>Author</label>
+        <input asp-for="Book.Author" class="form-control" placeholder="Book Author" />
         <span asp-validation-for="Book.Author" class="text-danger"></span>
     </div>
+
     <div class="form-group">
         <label>Price</label>
         <input asp-for="Book.Price" class="form-control" placeholder="Book Price" />
         <span asp-validation-for="Book.Price" class="text-danger"></span>
     </div>
-  <div class="form-group">
+
+    <div class="form-group">
     <label>Status</label>
         <select asp-for="Book.BookStatus" asp-items="Html.GetEnumSelectList<BookStatus>()" class="form-control">
         </select>
     </div>
+
     <div class="form-group">
         <label>Genre</label>
         <select asp-for="Book.GenreId"
@@ -33,6 +38,7 @@
                 class="form-control">
         </select>
     </div>
+
     <div class="form-group">
         <button type="submit" class="btn btn-primary">Edit</button>
     </div>
