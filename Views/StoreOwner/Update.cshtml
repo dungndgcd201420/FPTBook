@@ -2,6 +2,35 @@
 @using FPTBook.ViewModels
 @model BookGenreViewModel
 
+<style>
+    input {
+        width: 100%;
+        display: inline-block;
+        border-radius: 4px;
+        border: 1px solid #808080;
+        border-left: 6px solid #0B5ED7;
+        transition: 0.5s;
+    }
+
+    input:focus {
+        border: 3px solid #0B5ED7;
+    }
+
+    input:hover {
+        background-color: rgb(200, 225, 247);
+    }
+
+    label {
+        border: none;
+    }
+
+    input[type=submit] {
+        cursor: pointer;
+        width: 100%;
+        transition: 0.3s;
+    }
+</style>
+
 <h1 class="display-1">Update book's details</h1>
 
 <form asp-controller="StoreOwner" asp-action="Update" method="post">
