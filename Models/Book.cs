@@ -16,7 +16,7 @@ namespace FPTBook.Models
         [Required(ErrorMessage = "There is no price for this book")]
         public float Price { get; set; }
         [StringLength(255)]
-        public string Description { get; set; }
+        public string Author { get; set; }
         public BookStatus BookStatus { get; set; } 
         [Required]
         [ForeignKey("Genre")]

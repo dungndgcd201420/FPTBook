@@ -72,7 +72,7 @@ namespace FPTBook.Controllers
           {
             Title = viewModel.Book.Title,
             Price = viewModel.Book.Price,
-            Description = viewModel.Book.Description,
+            Author = viewModel.Book.Author,
             GenreId = viewModel.Book.GenreId,
             UserId = currentUserId
       };
@@ -115,7 +115,7 @@ namespace FPTBook.Controllers
         return View(viewModel);
       }
       bookInDb.Title = viewModel.Book.Title;
-      bookInDb.Description = viewModel.Book.Description;
+      bookInDb.Author = viewModel.Book.Author;
       bookInDb.BookStatus = viewModel.Book.BookStatus;
       bookInDb.Price = viewModel.Book.Price;
       bookInDb.GenreId = viewModel.Book.GenreId;
