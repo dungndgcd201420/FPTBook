@@ -1,5 +1,17 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model Book
+
+<div class="form-group">
+  <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-outline-danger">
+    Back to Index
+  </a>
+</div>
+
+<div class="card" style="width:200px">
+  <img src="@ViewBag.ImageData"/>
+  <div class="card-body">
+    <h4 class="card-title display-2">@Model.Title</h4>
+    <p class="card-text blockquote-footer">by @Model.Author</p>
+    <p class="card-text display-4">$ @Model.Price</p>
+    <p class="card-text display-4">@Model.Genre.Description</p>
+  </div>
+</div>

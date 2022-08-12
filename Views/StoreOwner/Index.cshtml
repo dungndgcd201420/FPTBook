@@ -10,7 +10,7 @@
 <div class="form-group">
     <form>
         <input type="text" name="genre" placeholder="Search by Genre" />
-        <button type="submit" class="btn btn-primary">Search</button>
+        <button type="submit" class="btn btn-outline-primary">Search</button>
     </form>
 </div>
 
@@ -22,7 +22,7 @@
     <th scope="col">Author</th>
     <th scope="col">Status</th>
     <th scope="col">Genre</th>
-    <th scope="col">Action</th>
+    <th scope="col">Actions</th>
     <th scope="col"></th>
     </thead>
     <tbody>
@@ -33,9 +33,11 @@
             <td>@item.Author</td>
             <td>@item.BookStatus.ToString()</td>
             <td>@item.Genre.Description</td>
-            <td><button class="btn btn-primary">Details</button>
-            <button class="btn btn-danger">Delete</button>
-            <button class="btn btn-danger">Edit</button></td>
+            <td>
+                <button class="btn btn-primary">Details</button>
+                <button class="btn btn-danger">Delete</button>
+                <button class="btn btn-danger">Edit</button>
+            </td>
      </tr>
      
        
