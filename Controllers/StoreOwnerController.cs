@@ -59,6 +59,7 @@ namespace FPTBook.Controllers
     [HttpPost]
     public async Task<IActionResult> Insert(BookGenreViewModel viewModel)
     {
+      var currentUserId = _userManager.GetUserId(User);
       if (!ModelState.IsValid)
       {
         viewModel = new BookGenreViewModel
@@ -72,7 +73,8 @@ namespace FPTBook.Controllers
         Title = viewModel.Book.Title,
         Price = viewModel.Book.Price,
         Description = viewModel.Book.Description,
-        GenreId = viewModel.Book.GenreId
+        GenreId = viewModel.Book.GenreId,
+        UserId = currentUserId
       };
       _context.Add(newBook);
       _context.SaveChanges();
@@ -82,15 +84,15 @@ namespace FPTBook.Controllers
     [HttpGet]
     public IActionResult Update(int id)
     {
-      var todoInDb = _context.Books.SingleOrDefault(t => t.BookId == id);
-      if (todoInDb is null)
+      var bookInDb = _context.Books.SingleOrDefault(t => t.BookId == id);
+      if (bookInDb is null)
       {
         return NotFound();
       }
 
       var viewModel = new BookGenreViewModel()
       {
-        Book = todoInDb,
+        Book = bookInDb,
         Genres = _context.Genres.ToList()
       };
       return View(viewModel);
@@ -98,8 +100,8 @@ namespace FPTBook.Controllers
     [HttpPost]
     public IActionResult Update(BookGenreViewModel viewModel)
     {
-      var todoInDb = _context.Books.SingleOrDefault(t => t.BookId == viewModel.Book.BookId);
-      if (todoInDb is null)
+      var bookInDb = _context.Books.SingleOrDefault(t => t.BookId == viewModel.Book.BookId);
+      if (bookInDb is null)
       {
         return BadRequest();
       }
@@ -112,11 +114,11 @@ namespace FPTBook.Controllers
         };
         return View(viewModel);
       }
-      todoInDb.Title = viewModel.Book.Title;
-      todoInDb.Description = viewModel.Book.Description;
-      todoInDb.BookStatus = viewModel.Book.BookStatus;
-      todoInDb.Price = viewModel.Book.Price;
-      todoInDb.GenreId = viewModel.Book.GenreId;
+      bookInDb.Title = viewModel.Book.Title;
+      bookInDb.Description = viewModel.Book.Description;
+      bookInDb.BookStatus = viewModel.Book.BookStatus;
+      bookInDb.Price = viewModel.Book.Price;
+      bookInDb.GenreId = viewModel.Book.GenreId;
 
       _context.SaveChanges();
 
