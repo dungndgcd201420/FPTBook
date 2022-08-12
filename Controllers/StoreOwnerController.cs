@@ -1,5 +1,6 @@
 ﻿using FPTBook.Data;
 using FPTBook.Models;
+using FPTBook.Utils;
 using FPTBook.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace FPTBook.Controllers
 {
-  [Authorize]
+  [Authorize(Roles = Role.OWNER)]
   public class StoreOwnerController : Controller
     {
         private ApplicationDbContext _context;
@@ -36,10 +37,10 @@ namespace FPTBook.Controllers
 
             return View(result);
           }
+         
             IEnumerable<Book> books = _context.Books
            .Include(t => t.Genre)
-           .Where(t => t.Genre.Description.Equals(genre)
-                 && t.UserId == currentUserId)
+           .Where(t  => t.UserId == currentUserId)
             .ToList();
             return View(books);
 
@@ -47,7 +48,6 @@ namespace FPTBook.Controllers
         [HttpGet]
         public IActionResult Insert()
         {
-          var currentUserId = _userManager.GetUserId(User);
           var viewModel = new BookGenreViewModel()
           {
             Genres = _context.Genres.ToList()
@@ -67,13 +67,15 @@ namespace FPTBook.Controllers
             };
             return View(viewModel);
           }
-          var newBook = new Book
+      var currentUserId = _userManager.GetUserId(User);
+      var newBook = new Book
           {
             Title = viewModel.Book.Title,
             Price = viewModel.Book.Price,
             Description = viewModel.Book.Description,
-            GenreId = viewModel.Book.GenreId
-          };
+            GenreId = viewModel.Book.GenreId,
+            UserId = currentUserId
+      };
           _context.Add(newBook);
           _context.SaveChanges();
           return RedirectToAction("Index");

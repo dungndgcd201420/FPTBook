@@ -32,6 +32,7 @@ namespace FPTBook
           options.UseSqlServer(
               Configuration.GetConnectionString("DefaultConnection")));
       services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+          .AddRoles<IdentityRole>()
           .AddEntityFrameworkStores<ApplicationDbContext>();
       services.AddControllersWithViews();
       services.AddRazorPages();

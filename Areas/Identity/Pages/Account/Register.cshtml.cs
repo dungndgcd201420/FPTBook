@@ -25,15 +25,18 @@ namespace FPTBook.Areas.Identity.Pages.Account
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly ILogger<RegisterModel> _logger;
-        private readonly IEmailSender _emailSender;
+      private readonly RoleManager<IdentityRole> _roleManager;
+      private readonly IEmailSender _emailSender;
         public SelectList RoleSelectList { get; set; }
     public RegisterModel(
             UserManager<ApplicationUser> userManager,
+            RoleManager<IdentityRole> roleManager,
             SignInManager<ApplicationUser> signInManager,
             ILogger<RegisterModel> logger,
             IEmailSender emailSender)
         {
             _userManager = userManager;
+            _roleManager = roleManager;
             _signInManager = signInManager;
             _logger = logger;
             _emailSender = emailSender;
@@ -86,7 +89,8 @@ namespace FPTBook.Areas.Identity.Pages.Account
         {
             returnUrl = returnUrl ?? Url.Content("~/");
             ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList();
-            if (ModelState.IsValid)
+            
+         if (ModelState.IsValid)
             {
               var user = new ApplicationUser
               {
@@ -126,9 +130,15 @@ namespace FPTBook.Areas.Identity.Pages.Account
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
-            return Page();
+              RoleSelectList = new SelectList(new List<string>
+                  {
+                    Role.ADMIN,
+                    Role.CUSTOMER,
+                    Role.OWNER
+                  }
+        );
+      // If we got this far, something failed, redisplay form
+      return Page();
         }
     }
 }
