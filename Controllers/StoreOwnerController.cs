@@ -1,6 +1,8 @@
 ﻿using FPTBook.Data;
 using FPTBook.Models;
 using FPTBook.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -9,26 +11,47 @@ using System.Threading.Tasks;
 
 namespace FPTBook.Controllers
 {
-    public class StoreOwnerController : Controller
+  [Authorize]
+  public class StoreOwnerController : Controller
     {
     private ApplicationDbContext _context;
-    public StoreOwnerController(ApplicationDbContext context)
+    private readonly UserManager<ApplicationUser> _userManager;
+    public StoreOwnerController(ApplicationDbContext context,UserManager<ApplicationUser> userManager)
     {
       _context = context;
+      _userManager = userManager;
     }
-    public IActionResult Index()
-        {
-      IEnumerable<Book> books = _context.Books
+    public IActionResult Index(string genre)
+    {
+      var currentUserId = _userManager.GetUserId(User);
+
+
+      if (!string.IsNullOrWhiteSpace(genre))
+      {
+        var result = _context.Books
+          .Include(t => t.Genre)
+          .Where(t => t.Genre.Description.Equals(genre)
+             && t.UserId == currentUserId)
+          .ToList();
+
+        return View(result);
+      }
+        IEnumerable<Book> books = _context.Books
        .Include(t => t.Genre)
+       .Where(t => t.Genre.Description.Equals(genre)
+             && t.UserId == currentUserId)
         .ToList();
-      return View(books);
-    }
+        return View(books);
+
+      }
     [HttpGet]
     public IActionResult Insert()
     {
+      var currentUserId = _userManager.GetUserId(User);
       var viewModel = new BookGenreViewModel()
       {
         Genres = _context.Genres.ToList()
+         
       };
       return View(viewModel);
     }
@@ -91,7 +114,7 @@ namespace FPTBook.Controllers
       }
       todoInDb.Title = viewModel.Book.Title;
       todoInDb.Description = viewModel.Book.Description;
-      todoInDb.Status = viewModel.Book.Status;
+      todoInDb.BookStatus = viewModel.Book.BookStatus;
       todoInDb.Price = viewModel.Book.Price;
       todoInDb.GenreId = viewModel.Book.GenreId;
 

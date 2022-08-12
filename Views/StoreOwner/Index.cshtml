@@ -3,13 +3,13 @@
 
 
 <div class="form-group">
-    <a asp-controller="Todoes"
-       asp-action="Create" class="btn btn-primary">Create new Todo</a>
+    <a asp-controller="StoreOwner"
+       asp-action="Insert" class="btn btn-primary">Create new Books</a>
 </div>
 
 <div class="form-group">
     <form>
-        <input type="text" name="category" placeholder="Search by Category" />
+        <input type="text" name="genre" placeholder="Search by Genre" />
         <button type="submit" class="btn btn-primary">Search</button>
     </form>
 </div>
@@ -31,7 +31,7 @@
             <th scope="row">@item.BookId</th>
                 <td>@item.Title</td>
             <td>@item.Description</td>
-            <td>@item.Status.ToString()</td>
+            <td>@item.BookStatus.ToString()</td>
             <td>@item.Genre.Description</td>
             <td><button class="btn btn-primary">Details</button>
             <button class="btn btn-danger">Delete</button>

@@ -1,4 +1,5 @@
 using FPTBook.Data;
+using FPTBook.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -32,6 +33,7 @@ namespace FPTBook
               Configuration.GetConnectionString("DefaultConnection")));
       services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
           .AddEntityFrameworkStores<ApplicationDbContext>();
+      services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true);
       services.AddControllersWithViews();
       services.AddRazorPages();
     }
