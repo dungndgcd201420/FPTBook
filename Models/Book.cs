@@ -12,7 +12,8 @@ namespace FPTBook.Models
         public int BookId { get; set; }
         [Required(ErrorMessage = "There is no title for this book")]
         [StringLength(255)]
-        public string Title { get; set; }   
+        public string Title { get; set; }
+        [Required(ErrorMessage = "There is no price for this book")]
         public float Price { get; set; }
         [StringLength(255)]
         public string Description { get; set; }
