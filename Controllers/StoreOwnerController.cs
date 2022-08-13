@@ -95,34 +95,39 @@ namespace FPTBook.Controllers
       };
       return View(viewModel);
     }
-    [HttpPost]
-    public IActionResult Update(BookGenreViewModel viewModel)
-    {
-      var bookInDb = _context.Books.SingleOrDefault(t => t.BookId == viewModel.Book.BookId);
-      if (bookInDb is null)
-      {
-        return BadRequest();
-      }
-      if (!ModelState.IsValid)
-      {
-        viewModel = new BookGenreViewModel()
+        [HttpPost]
+        public async Task<IActionResult> Update(BookGenreViewModel viewModel)
         {
-          Book = viewModel.Book,
-          Genres = _context.Genres.ToList()
-        };
-        return View(viewModel);
-      }
-        bookInDb.Title = viewModel.Book.Title;
-        bookInDb.Author = viewModel.Book.Author;
-        bookInDb.BookStatus = viewModel.Book.BookStatus;
-        bookInDb.Price = viewModel.Book.Price;
-        bookInDb.GenreId = viewModel.Book.GenreId;
+            using (var memoryStream = new MemoryStream())
+            {
+                await viewModel.FormFile.CopyToAsync(memoryStream);
+                var bookInDb = _context.Books.SingleOrDefault(t => t.BookId == viewModel.Book.BookId);
+                if (bookInDb is null)
+                {
+                    return BadRequest();
+                }
+                if (!ModelState.IsValid)
+                {
+                    viewModel = new BookGenreViewModel()
+                    {
+                        Book = viewModel.Book,
+                        Genres = _context.Genres.ToList()
+                    };
+                    return View(viewModel);
+                }
+                bookInDb.Title = viewModel.Book.Title;
+                bookInDb.Author = viewModel.Book.Author;
+                bookInDb.BookStatus = viewModel.Book.BookStatus;
+                bookInDb.Price = viewModel.Book.Price;
+                bookInDb.GenreId = viewModel.Book.GenreId;
+                bookInDb.ImageData = memoryStream.ToArray();
 
-          _context.SaveChanges();
+            }
 
-          return RedirectToAction("Index");
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
-        [HttpGet]
+            [HttpGet]
         public IActionResult Details(int id)
         {
             var bookInDb = _context.Books
