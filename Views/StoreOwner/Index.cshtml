@@ -34,9 +34,12 @@
             <td>@item.BookStatus.ToString()</td>
             <td>@item.Genre.Description</td>
             <td>
-                <button class="btn btn-primary">Details</button>
-                <button class="btn btn-danger">Delete</button>
-                <button class="btn btn-danger">Edit</button>
+                    <a asp-controller="StoreOwner"
+                   asp-action="Details" class="btn btn-info" asp-route-id=@item.BookId>Details</a>
+                     <a asp-controller="StoreOwner"
+                   asp-action="Update" class="btn btn-dark" asp-route-id=@item.BookId>Update</a>
+                    <a asp-controller="StoreOwner"
+                   asp-action="Delete" class="btn btn-danger" asp-route-id=@item.BookId>Delete</a>
             </td>
      </tr>
      

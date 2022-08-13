@@ -1,5 +1,27 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
-}
+﻿@model IEnumerable<Book>
+
+<style>
+
+</style>
+<div class="form-group">
+    <a asp-controller="Customer" asp-action="Index" class="btn btn-outline-danger">
+        Back to Index
+    </a>
+</div>
+
+  @foreach (var item in Model){
+    <div class="card" style="width:300px">
+        <img src="@ViewBag.ImageData" />
+        <div class="card-body">
+            <h4 class="card-title display-2">@item.Title</h4>
+            <p class="card-text ">Author: @item.Author</p>
+            <p class="card-text display-3">Price: @item.Price</p>
+            <p class="card-text display-3">Genre: @item.Genre.Description</p>
+        </div>
+    </div>
+
+     
+
+  }
+
+   

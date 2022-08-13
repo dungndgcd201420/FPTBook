@@ -6,12 +6,12 @@
   </a>
 </div>
 
-<div class="card" style="width:200px">
-  <img src="@ViewBag.ImageData"/>
+<div class="card" style="width:15rem">
+    <img class="card-img-top" src="@ViewBag.ImageData" alt="Card Image" />
   <div class="card-body">
-    <h4 class="card-title display-2">@Model.Title</h4>
-    <p class="card-text blockquote-footer">by @Model.Author</p>
-    <p class="card-text display-4">$ @Model.Price</p>
-    <p class="card-text display-4">@Model.Genre.Description</p>
+    <h4 class="card-title">@Model.Title</h4>
+    <p class="card-text ">Author: @Model.Author</p>
+    <p class="card-text "> Price: @Model.Price</p>
+    <p class="card-text ">Genre: @Model.Genre.Description</p>
   </div>
 </div>
