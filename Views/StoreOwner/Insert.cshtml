@@ -30,7 +30,13 @@
     }
 </style>
 
-<h1>Insert a new Book </h1>
+<div class="form-group">
+  <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-outline-danger">
+    Back to Index
+  </a>
+</div>
+
+<h1 class="display-1 text-center">Insert a new Book </h1>
 
 
 <form enctype="multipart/form-data" asp-controller="StoreOwner" asp-action="Insert" method="post">
