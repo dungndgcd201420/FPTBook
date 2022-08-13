@@ -5,7 +5,7 @@ namespace FPTBook.ViewModels
 {
     public class ResetPasswordViewModel
     {
-        public int Id { get; set; }
+        public string UserId { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]

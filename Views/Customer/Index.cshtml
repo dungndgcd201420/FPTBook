@@ -36,7 +36,7 @@
               <img src="@ViewBag.ImageData"/>
               <div class="card-body">
                 <div class="d-flex justify-content-between">
-                  <p class="small"><a href="#!" class="text-muted">@item.Genre.Description</a></p>
+                  <p class="small">@item.Genre.Description</p>
                 </div>
 
                 <div class="d-flex justify-content-between mb-3">
@@ -44,7 +44,7 @@
                   <h5 class="text-dark mb-0">$ @item.Price</h5>
                 </div>
 
-                <button type="submit" class="btn btn-primary">Add to Cart</button>
+                <button asp-controller="Customer" asp-action="AddToCart" type="submit" class="btn btn-warning">Add to Cart</button>
 
               </div>
             </div>

@@ -24,8 +24,8 @@
 
    @if (!User.Identity.IsAuthenticated)
   {
-    <h3>Register for New User</h3>
-    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-danger">Register your account</a>
+    <h3 class="text-center">Register for New User</h3>
+    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary text-center">Register your account</a>
 }
 else{
     if (User.IsInRole(Role.CUSTOMER))

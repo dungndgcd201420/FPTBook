@@ -6,11 +6,10 @@ namespace FPTBook.Models
     public class Cart
     {
         [Key]
-        public int UserId { get; set; }
-        public int Id { get; set; }
-        public string Title { get; set; }   
-        public float Price { get; set; }
-        public Genre Genre { get; set; }
+        public string UserId { get; set; }
+        public Book Book { get; set; }
+        public int Quantity { get; set; }
+
         public DateTime OrderedAt { get; set; } = DateTime.Now;
     }
 }

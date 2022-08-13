@@ -48,7 +48,7 @@ namespace FPTBook.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> AdminResetPassword(ResetPasswordViewModel model)
         {
-            var user = await _userManager.FindByIdAsync(model.Id.ToString());
+            var user = await _userManager.FindByIdAsync(model.UserId);
             if (user == null)
             {
                 return NotFound();
