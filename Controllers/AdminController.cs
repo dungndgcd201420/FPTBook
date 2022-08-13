@@ -1,10 +1,14 @@
 ﻿using FPTBook.Data;
 using FPTBook.Models;
 using FPTBook.Utils;
+using FPTBook.ViewModels;
 
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+
+using System.Net;
+using System.Threading.Tasks;
 
 namespace FPTBook.Controllers
 {
@@ -40,5 +44,25 @@ namespace FPTBook.Controllers
             return View(usersWithPermission);
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> AdminResetPassword(ResetPasswordViewModel model)
+        {
+            var user = await _userManager.FindByIdAsync(model.Id.ToString());
+            if (user == null)
+            {
+                return NotFound();
+            }
+
+            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.NewPassword);
+            var result = await _userManager.UpdateAsync(user);
+
+            if (!result.Succeeded)
+            {
+                return View();
+            }
+
+            return View();
+        }
     }
 }
