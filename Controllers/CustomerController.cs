@@ -58,8 +58,6 @@ namespace FPTBook.Controllers
       return View(bookList.AsEnumerable());
     }
 
-
-        [HttpPost]
         public async Task<IActionResult> AddToCart(int id)
         {
             var currentUserId = _userManager.GetUserId(User);
@@ -79,12 +77,13 @@ namespace FPTBook.Controllers
             Price = bookInStore.Price
           };
           _context.Add(cartItem);
+           await _context.SaveChangesAsync();
         }
         else
         {
           bookInCart.Quantity += 1;
         }
-         await _context.SaveChangesAsync();
+      
          return RedirectToAction("Index");
           }
       }

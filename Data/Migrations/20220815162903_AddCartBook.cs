@@ -28,16 +28,17 @@ namespace FPTBook.Data.Migrations
                 name: "Carts",
                 columns: table => new
                 {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<string>(nullable: false),
                     BookId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<float>(nullable: false),
-                    UserId1 = table.Column<string>(nullable: false),
                     OrderedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Carts", x => x.UserId);
+                    table.PrimaryKey("PK_Carts", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Carts_Books_BookId",
                         column: x => x.BookId,
@@ -45,8 +46,8 @@ namespace FPTBook.Data.Migrations
                         principalColumn: "BookId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Carts_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Carts_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -63,9 +64,9 @@ namespace FPTBook.Data.Migrations
                 column: "BookId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Carts_UserId1",
+                name: "IX_Carts_UserId",
                 table: "Carts",
-                column: "UserId1");
+                column: "UserId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Books_AspNetUsers_ApplicationUserId",
