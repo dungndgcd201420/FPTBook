@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
 using static System.Reflection.Metadata.BlobBuilder;
 
@@ -58,41 +59,35 @@ namespace FPTBook.Controllers
     }
 
 
-        [HttpGet]
+        [HttpPost]
         public async Task<IActionResult> AddToCart(int id)
         {
             var currentUserId = _userManager.GetUserId(User);
-            var CartBookInDb = _context.Books.SingleOrDefault(t => t.BookId == id);
+             var bookInStore = _context.Books.SingleOrDefault(t => t.BookId == id);
 
-            var bookInCart = _context.Carts.SingleOrDefault(
+          var bookInCart = _context.Carts.SingleOrDefault(
               t => t.UserId == currentUserId &&
               t.BookId == id);
-            if (CartBookInDb == null)
-                  {
-                    var cartItem = new Cart()
-                    {
-                      BookId = id,
-                      UserId = currentUserId,
-                      Quantity = 1,
-                      Price = CartBookInDb.Price
-                    };
-                 _context.Add(cartItem);
 
-              var order = new Order();
-              order.CartItems = new List<Cart>();
-              order.CartItems.Add(bookInCart);
-            }
-            else
-            {
-              bookInCart.Quantity++;
-            }
-            await _context.SaveChangesAsync();
-            return RedirectToAction("Index");
-          
-
-          
+        if (bookInCart == null)
+        {
+          var cartItem = new Cart()
+          {
+            BookId = id,
+            UserId = currentUserId,
+            Quantity = 1,
+            Price = bookInStore.Price
+          };
+          _context.Add(cartItem);
         }
-    }
+        else
+        {
+          bookInCart.Quantity += 1;
+        }
+         await _context.SaveChangesAsync();
+         return RedirectToAction("Index");
+          }
+      }
     
 
     

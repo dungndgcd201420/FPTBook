@@ -29,7 +29,6 @@ namespace FPTBook.Data.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(nullable: false),
-                    Book = table.Column<int>(nullable: false),
                     BookId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
                     Price = table.Column<float>(nullable: false),
@@ -39,6 +38,12 @@ namespace FPTBook.Data.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Carts", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_Carts_Books_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Books",
+                        principalColumn: "BookId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Carts_AspNetUsers_UserId1",
                         column: x => x.UserId1,
@@ -51,6 +56,11 @@ namespace FPTBook.Data.Migrations
                 name: "IX_Books_ApplicationUserId",
                 table: "Books",
                 column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Carts_BookId",
+                table: "Carts",
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Carts_UserId1",

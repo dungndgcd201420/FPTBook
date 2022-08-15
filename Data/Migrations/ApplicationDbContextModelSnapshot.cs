@@ -64,9 +64,6 @@ namespace FPTBook.Data.Migrations
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Book")
-                        .HasColumnType("int");
-
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
@@ -84,6 +81,8 @@ namespace FPTBook.Data.Migrations
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("BookId");
 
                     b.HasIndex("UserId1");
 
@@ -364,6 +363,12 @@ namespace FPTBook.Data.Migrations
 
             modelBuilder.Entity("FPTBook.Models.Cart", b =>
                 {
+                    b.HasOne("FPTBook.Models.Book", "Book")
+                        .WithMany()
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("FPTBook.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId1")

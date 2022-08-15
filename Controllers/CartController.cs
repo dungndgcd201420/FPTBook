@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
+
 
 namespace FPTBook.Controllers
 {
@@ -28,8 +28,6 @@ namespace FPTBook.Controllers
 
       IEnumerable<Cart> booksInCart = _context.Carts
             .Include(t=> t.Book)
-            .Include(t => t.Price)
-            .Include(t=>t.Quantity)
             .Where(t => t.UserId == currentUserId)
             .ToList();
 

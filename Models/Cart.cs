@@ -7,7 +7,7 @@ namespace FPTBook.Models
     {
         [Key]
         public string UserId { get; set; }
-        public int Book { get; set; }
+        public Book Book { get; set; }
         public int BookId { get; set; }
         public int Quantity { get; set; }
         public float Price { get; set; }
