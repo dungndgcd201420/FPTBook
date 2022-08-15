@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220812010113_AddUserIdAndUser")]
-    partial class AddUserIdAndUser
+    [Migration("20220815060607_AddBooksAndGenresTable")]
+    partial class AddBooksAndGenresTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -28,12 +28,12 @@ namespace FPTBook.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("BookStatus")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Description")
+                    b.Property<string>("Author")
                         .HasColumnType("nvarchar(255)")
                         .HasMaxLength(255);
+
+                    b.Property<int>("BookStatus")
+                        .HasColumnType("int");
 
                     b.Property<int>("GenreId")
                         .HasColumnType("int");

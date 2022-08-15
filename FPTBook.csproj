@@ -8,6 +8,14 @@
   <ItemGroup>
     <Compile Remove="Data\Migrations\20220812034548_SeedRoles.cs" />
     <Compile Remove="Data\Migrations\20220812034548_SeedRoles.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815050506_AddBooksTableandGenresTable.cs" />
+    <Compile Remove="Data\Migrations\20220815050506_AddBooksTableandGenresTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815050933_AddBookAndGenre.cs" />
+    <Compile Remove="Data\Migrations\20220815050933_AddBookAndGenre.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815052713_AddBooksAndGenres.cs" />
+    <Compile Remove="Data\Migrations\20220815052713_AddBooksAndGenres.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815060511_AddBooksTable.cs" />
+    <Compile Remove="Data\Migrations\20220815060511_AddBooksTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
