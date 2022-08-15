@@ -1,25 +1,48 @@
 ﻿@model IEnumerable<Cart>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th scope="col">Title</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">#</th>
-        </tr>
-    </thead>
-    
-    <tbody>
-        @foreach(var item in Model){
-            <tr>
-                <td>@item.Book.Title</td>
-                <td>@item.Price</td>
-                <td>@item.Quantity</td>
-            </tr>
-
-        }
-
-    </tbody>
-
-    </table>
+<div class="container-fluid">
+    <div class="row px-5">
+        <div class="col-md-7">
+            <div class="shopping-cart">
+                <h6 style="font-weight: bold;">My Shopping Cart</h6>
+                <hr>
+                    @foreach(var item in Model){
+                    <form class="cart-items">
+                        <div class="border rounded">
+                            <div class="row bg-white">
+                                <div class="col-md-3 pl-0">
+                                    <img class="img-fluid">
+                                </div>
+                                <div class="col-md-6">
+                                    <h5 class="pt-2" style="font-weight: bold;">@item.Book.Title</h5>
+                                    <h5 class="pt-2 blockquote-footer">@item.Book.Author</h5>
+                                    <h5 class="pt-2">@item.Book.Price</h5>
+                                    <button class="btn btn-danger mx-2">Remove</button>
+                                </div>
+                                <div class="col-md-3 py-5">
+                                    <div>
+                                        <input type="number" placeholder="Quantity">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    }
+            </div>
+        </div>
+        <div class="col-md-4 offset-md-1 border rounded mt-5 bg-white h-25">
+            <div class="pt-4">
+                <h6 style="font-weight: bold;">PRICE DETAILS</h6>
+                <hr>
+                <div class="row price-details">
+                    <div class="col-md-6">
+                        <div class="col-md-6">
+                            Total
+                        </div>
+                    </div>
+                    <button class="btn btn-warning">CHECK OUT</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

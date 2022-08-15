@@ -1,6 +1,23 @@
 ﻿@using FPTBook.ViewModels
 @model IEnumerable<BookDisplayViewModel>
 
+<style>
+    .flex-container{
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .flex-item{
+        margin: 20px;
+    }
+
+    img {
+        width: 328px;
+        height: 500px;
+    }
+
+</style>
+
 <h1 class="display-1 text-center">Welcome to our store</h1>
 
 <div class="form-group">
@@ -10,49 +27,49 @@
     </form>
 </div>
 
-  @foreach (var item in Model)
-  {
-    <div class="container py-5">
-        <div class="row">
-          <div class="col-md-12 col-lg-4 mb-4 mb-lg-0">
-            <div class="card">
-              <div class="d-flex justify-content-between p-3">
-                <p class="lead mb-0">@item.Title</p>
-                  @if ((int)@item.BookStatus == 1)
-                  {
-                    <div
-                            class="bg-info d-flex align-items-center justify-content-center shadow-1-strong"
-                            style="width: 70px; height: 35px;">
-                            <p class="text-white mb-0 small">In Stock</p>
+<div class="flex-container">
+    @foreach (var item in Model)
+    {
+        <div class="flex-item">
+            <div class="card shadow">
+                <p class="lead">@item.Title</p>
+                @if ((int)@item.BookStatus == 1)
+                {
+                    <div class="bg-info rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                 style="width: 35px; height: 35px;">
+                        <p class="text-white mb-0 small">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-check-fill" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm-1.146 6.854-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708.708z" />
+                            </svg>
+                        </p>
                     </div>
-                  } else
-                    {
-                       <div
-                            class="bg-danger d-flex align-items-center justify-content-center shadow-1-strong"
-                            style="width: 100px; height: 35px;">
-                            <p class="text-white mb-0 small">Out Of Stock</p>
-                       </div>          
-                    }
-                            </div>
-              <img src="@item.ImageUrl"/>
-              <div class="card-body">
-                <div class="d-flex justify-content-between">
-                  <p class="small">@item.Genre.Description</p>
+                }
+                else
+                {
+                    <div class="bg-danger rounded-circle d-flex align-items-center justify-content-center shadow-1-strong"
+                 style="width: 35px; height: 35px;">
+                        <p class="text-white mb-0 small">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-x-fill" viewBox="0 0 16 16">
+                                <path d="M12 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zM6.854 6.146 8 7.293l1.146-1.147a.5.5 0 1 1 .708.708L8.707 8l1.147 1.146a.5.5 0 0 1-.708.708L8 8.707 6.854 9.854a.5.5 0 0 1-.708-.708L7.293 8 6.146 6.854a.5.5 0 1 1 .708-.708z" />
+                            </svg>
+                        </p>
+                    </div>
+                }
+
+                <img class="card-img-top" src="@item.ImageUrl" />
+                <div class="card-body">
+                    <h5 class="card-title" style="font-weight: bold; font-size:20px;">@item.Author</h5>
+                    <h5>
+                        <span class="">$ @item.Price</span>
+                        <span class="">@item.Genre.Description</span>
+                    </h5>
+                    <a asp-controller="Customer" asp-action="AddToCart" asp-route-id=@item.BookId class="btn btn-warning">Add to Cart</a>
                 </div>
-
-                <div class="d-flex justify-content-between mb-3">
-                  <h5 class="mb-0">@item.Author</h5>
-                  <h5 class="text-dark mb-0">$ @item.Price</h5>
-                </div>
-
-                <a asp-controller="Customer" asp-action="AddToCart" asp-route-id=@item.BookId  class="btn btn-warning">Add to Cart</a>
-
-              </div>
             </div>
-          </div>
         </div>
-      </div>
-      }
+    }
+</div>
+  
   
     
 
