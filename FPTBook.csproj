@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -16,6 +16,8 @@
     <Compile Remove="Data\Migrations\20220815052713_AddBooksAndGenres.Designer.cs" />
     <Compile Remove="Data\Migrations\20220815060511_AddBooksTable.cs" />
     <Compile Remove="Data\Migrations\20220815060511_AddBooksTable.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815102815_AddCartBook.cs" />
+    <Compile Remove="Data\Migrations\20220815102815_AddCartBook.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

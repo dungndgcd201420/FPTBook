@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace FPTBook.Controllers
@@ -42,6 +43,7 @@ namespace FPTBook.Controllers
 
         var newBook = new BookDisplayViewModel()
         {
+          BookId = book.BookId,
           Title = book.Title,
           Author = book.Author,
           Price = book.Price,
@@ -51,28 +53,44 @@ namespace FPTBook.Controllers
         };
         bookList.Add(newBook);
       }
-      IEnumBookList = bookList.AsEnumerable();
 
-      return View(IEnumBookList);
+      return View(bookList.AsEnumerable());
     }
-    public IEnumerable<BookDisplayViewModel> IEnumBookList { get; set; }
 
-    [HttpGet]
-        public IActionResult AddToCart(int id)
+
+        [HttpGet]
+        public async Task<IActionResult> AddToCart(int id)
         {
             var currentUserId = _userManager.GetUserId(User);
-            var bookInDb = _context.Books.SingleOrDefault(t => t.BookId == id);
-            var cartItem = new Cart()
-            {
-                UserId = currentUserId,
-                Book = bookInDb,
-                Quantity = 1
-            };
-            var order = new Order();
-            order.CartItems = new List<Cart>();
-            order.CartItems.Add(cartItem);
+            var CartBookInDb = _context.Books.SingleOrDefault(t => t.BookId == id);
 
-            return View();
+            var bookInCart = _context.Carts.SingleOrDefault(
+              t => t.UserId == currentUserId &&
+              t.BookId == id);
+            if (CartBookInDb == null)
+                  {
+                    var cartItem = new Cart()
+                    {
+                      BookId = id,
+                      UserId = currentUserId,
+                      Quantity = 1,
+                      Price = CartBookInDb.Price
+                    };
+                 _context.Add(cartItem);
+
+              var order = new Order();
+              order.CartItems = new List<Cart>();
+              order.CartItems.Add(bookInCart);
+            }
+            else
+            {
+              bookInCart.Quantity++;
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Index");
+          
+
+          
         }
     }
     

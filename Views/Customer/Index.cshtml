@@ -45,7 +45,7 @@
                   <h5 class="text-dark mb-0">$ @item.Price</h5>
                 </div>
 
-                <button asp-controller="Customer" asp-action="AddToCart" type="submit" class="btn btn-warning">Add to Cart</button>
+                <button asp-controller="Customer" asp-action="AddToCart" asp-route-id=@item.BookId type="submit" class="btn btn-warning">Add to Cart</button>
 
               </div>
             </div>
