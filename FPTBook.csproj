@@ -30,6 +30,10 @@
     <Compile Remove="Data\Migrations\20220816082437_AddCartBook.Designer.cs" />
     <Compile Remove="Data\Migrations\20220816083444_AddCartBook.cs" />
     <Compile Remove="Data\Migrations\20220816083444_AddCartBook.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220816084533_AddOrder.cs" />
+    <Compile Remove="Data\Migrations\20220816084533_AddOrder.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220816092101_AddOrder.cs" />
+    <Compile Remove="Data\Migrations\20220816092101_AddOrder.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220816084533_AddOrder")]
+    [Migration("20220816094341_AddOrder")]
     partial class AddOrder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -71,6 +71,9 @@ namespace FPTBook.Data.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("OrderId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("OrderedAt")
                         .HasColumnType("datetime2");
 
@@ -84,6 +87,8 @@ namespace FPTBook.Data.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("BookId");
+
+                    b.HasIndex("OrderId");
 
                     b.HasIndex("UserId");
 
@@ -114,9 +119,6 @@ namespace FPTBook.Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("ItemId")
-                        .HasColumnType("int");
-
                     b.Property<int>("OrderStatus")
                         .HasColumnType("int");
 
@@ -124,8 +126,6 @@ namespace FPTBook.Data.Migrations
                         .HasColumnType("real");
 
                     b.HasKey("OrderId");
-
-                    b.HasIndex("ItemId");
 
                     b.ToTable("Orders");
                 });
@@ -393,18 +393,15 @@ namespace FPTBook.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("FPTBook.Models.Order", null)
+                        .WithMany("CartList")
+                        .HasForeignKey("OrderId");
+
                     b.HasOne("FPTBook.Models.ApplicationUser", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("FPTBook.Models.Order", b =>
-                {
-                    b.HasOne("FPTBook.Models.Cart", "Item")
-                        .WithMany()
-                        .HasForeignKey("ItemId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

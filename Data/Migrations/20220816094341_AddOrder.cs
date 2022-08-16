@@ -6,37 +6,55 @@ namespace FPTBook.Data.Migrations
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.AddColumn<int>(
+                name: "OrderId",
+                table: "Carts",
+                nullable: true);
+
             migrationBuilder.CreateTable(
                 name: "Orders",
                 columns: table => new
                 {
                     OrderId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    ItemId = table.Column<int>(nullable: true),
                     Total = table.Column<float>(nullable: false),
                     OrderStatus = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Orders", x => x.OrderId);
-                    table.ForeignKey(
-                        name: "FK_Orders_Carts_ItemId",
-                        column: x => x.ItemId,
-                        principalTable: "Carts",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Orders_ItemId",
-                table: "Orders",
-                column: "ItemId");
+                name: "IX_Carts_OrderId",
+                table: "Carts",
+                column: "OrderId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_Carts_Orders_OrderId",
+                table: "Carts",
+                column: "OrderId",
+                principalTable: "Orders",
+                principalColumn: "OrderId",
+                onDelete: ReferentialAction.Restrict);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropForeignKey(
+                name: "FK_Carts_Orders_OrderId",
+                table: "Carts");
+
             migrationBuilder.DropTable(
                 name: "Orders");
+
+            migrationBuilder.DropIndex(
+                name: "IX_Carts_OrderId",
+                table: "Carts");
+
+            migrationBuilder.DropColumn(
+                name: "OrderId",
+                table: "Carts");
         }
     }
 }
