@@ -43,10 +43,19 @@ namespace FPTBook.Controllers
             var usersWithPermission = _userManager.GetUsersInRoleAsync(Role.OWNER).Result;
             return View(usersWithPermission);
         }
-
+        [HttpGet]
+        public IActionResult ChangePassword(string id)
+        {
+            var user = _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return NotFound();
+            }
+            return View();
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AdminResetPassword(ResetPasswordViewModel model)
+        public async Task<IActionResult> ChangePassword(ResetPasswordViewModel model)
         {
             var user = await _userManager.FindByIdAsync(model.UserId);
             if (user == null)
