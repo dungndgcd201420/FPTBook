@@ -17,12 +17,19 @@
                                     <h5 class="pt-2" style="font-weight: bold;">@item.Book.Title</h5>
                                     <h5 class="pt-2 blockquote-footer">@item.Book.Author</h5>
                                     <h5 class="pt-2">@item.Book.Price</h5>
-                                    <button class="btn btn-danger mx-2">Remove</button>
+                                    
+                                    <a asp-controller="Cart" asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger mx-2">Remove</a>
                                 </div>
                                 <div class="col-md-3 py-5">
                                     <div>
-                                        <input type="number" placeholder="Quantity">
+                                       <p>@item.Quantity</p>
                                     </div>
+                                    @{
+                                        var SubTotal = @item.Quantity * @item.Book.Price;
+                                        <h5 class="pt-2">@SubTotal</h5>
+                                    }
+                               <a asp-controller="Cart" asp-action="QuantityUp" asp-route-id=@item.Id class="btn btn-info">+</a>
+                               <a asp-controller="Cart" asp-action="QuantityDown" asp-route-id=@item.Id class="btn btn-info">-</a>
                                 </div>
                             </div>
                         </div>

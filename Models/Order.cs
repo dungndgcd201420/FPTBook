@@ -7,8 +7,8 @@ namespace FPTBook.Models
     public class Order
     {
         public int OrderId { get; set; }
-        public List<Cart> CartItems { get; set; }
-        public decimal OrderTotal { get; set; }
+        public Cart Item { get; set; }
+        public float Total { get; set; }
         public OrderStatus OrderStatus { get; set; }
     }
 }

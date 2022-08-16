@@ -22,6 +22,14 @@
     <Compile Remove="Data\Migrations\20220815105317_AddCartBook.Designer.cs" />
     <Compile Remove="Data\Migrations\20220815111502_AddCartBook.cs" />
     <Compile Remove="Data\Migrations\20220815111502_AddCartBook.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220815162903_AddCartBook.cs" />
+    <Compile Remove="Data\Migrations\20220815162903_AddCartBook.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220816082133_AddCartBook.cs" />
+    <Compile Remove="Data\Migrations\20220816082133_AddCartBook.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220816082437_AddCartBook.cs" />
+    <Compile Remove="Data\Migrations\20220816082437_AddCartBook.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220816083444_AddCartBook.cs" />
+    <Compile Remove="Data\Migrations\20220816083444_AddCartBook.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

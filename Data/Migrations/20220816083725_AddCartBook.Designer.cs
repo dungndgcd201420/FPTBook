@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220815162903_AddCartBook")]
+    [Migration("20220816083725_AddCartBook")]
     partial class AddCartBook
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -73,9 +73,6 @@ namespace FPTBook.Data.Migrations
 
                     b.Property<DateTime>("OrderedAt")
                         .HasColumnType("datetime2");
-
-                    b.Property<float>("Price")
-                        .HasColumnType("real");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");

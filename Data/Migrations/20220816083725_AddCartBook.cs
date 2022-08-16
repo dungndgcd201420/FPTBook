@@ -33,7 +33,6 @@ namespace FPTBook.Data.Migrations
                     UserId = table.Column<string>(nullable: false),
                     BookId = table.Column<int>(nullable: false),
                     Quantity = table.Column<int>(nullable: false),
-                    Price = table.Column<float>(nullable: false),
                     OrderedAt = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>

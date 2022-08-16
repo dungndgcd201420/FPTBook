@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Threading.Tasks;
 
 namespace FPTBook.Controllers
 {
@@ -33,7 +33,47 @@ namespace FPTBook.Controllers
 
       return View(booksInCart);
     }
-  
+
+    public IActionResult QuantityUp(int id)
+    {
+      var bookInCart = _context.Carts.SingleOrDefault(t => t.Id == id);
+        if (bookInCart == null)
+      {
+        return NotFound();
+      }
+      bookInCart.Quantity += 1;
+      _context.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    public IActionResult QuantityDown(int id)
+    {
+      var bookInCart = _context.Carts.SingleOrDefault(t => t.Id == id);
+      if (bookInCart == null)
+      {
+        return NotFound();
+      }
+      if (bookInCart.Quantity > 1)
+      {
+        bookInCart.Quantity -= 1;
+      }
+      _context.SaveChanges();
+      return RedirectToAction("Index");
+    }
+    [HttpGet]
+    public async Task<IActionResult> Delete(int id)
+    {
+      var cartBook = _context.Carts;
+      var bookInCart = _context.Carts.SingleOrDefault(t => t.Id == id);
+      if (bookInCart == null)
+      {
+        return NotFound();
+      }
+      cartBook.Remove(bookInCart);
+      await _context.SaveChangesAsync();
+      return RedirectToAction("Index");
+
+    }
+
   }
   }
 

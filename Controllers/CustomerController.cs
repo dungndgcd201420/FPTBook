@@ -69,12 +69,11 @@ namespace FPTBook.Controllers
 
         if (bookInCart == null)
         {
-          var cartItem = new Cart()
-          {
-            BookId = id,
-            UserId = currentUserId,
-            Quantity = 1,
-            Price = bookInStore.Price
+        var cartItem = new Cart()
+        {
+          BookId = id,
+          UserId = currentUserId,
+          Quantity = 1
           };
           _context.Add(cartItem);
            await _context.SaveChangesAsync();
