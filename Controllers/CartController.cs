@@ -4,6 +4,7 @@ using FPTBook.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Razor.Language;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,8 @@ namespace FPTBook.Controllers
     public IActionResult Index()
     {
       var currentUserId = _userManager.GetUserId(User);
-
+      var orderInDb = _context.Orders;
+  
       IEnumerable<Cart> booksInCart = _context.Carts
             .Include(t=> t.Book)
             .Where(t => t.UserId == currentUserId)
@@ -71,6 +73,34 @@ namespace FPTBook.Controllers
       cartBook.Remove(bookInCart);
       await _context.SaveChangesAsync();
       return RedirectToAction("Index");
+
+    }
+    public async Task<IActionResult> CheckOut()
+    {
+      var currentUserId = _userManager.GetUserId(User);
+      var orderInDb = _context.Orders;
+      var orders = _context.Orders
+      .Include(t => t.CartList)
+      .Where(t => t.UserId == currentUserId)
+      .ToList();
+      var cartBooks = _context.Carts
+        .Include(t => t.Book)
+        .Where(t => t.UserId == currentUserId)
+        .ToList();
+      if (!orders.Any())
+      {
+        var newOrder = new Order()
+        {
+          CartList = cartBooks,
+          Total = 0,
+          OrderStatus = Enums.OrderStatus.notPaid,
+          UserId = currentUserId
+        };
+        orderInDb.Add(newOrder);
+        await _context.SaveChangesAsync();
+      }
+
+      return RedirectToAction("Index", "Order");
 
     }
 

@@ -1,10 +1,9 @@
-﻿<div class="form-group">
-  <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-outline-danger">
+﻿@model IEnumerable<Order>
+<div class="form-group">
+  <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-danger">
     Back to Index
   </a>
 </div>
-
-
 
 <table class="table">
   <thead>
@@ -15,5 +14,23 @@
       <th scope="col">Sub Total</th>
     </tr>
   </thead>
+    
+    @foreach (var order in Model)
+    {
+        @foreach (var book in order.CartList)
+        {
+            <tr>
+            <th class="lead">@book.Title</th>
+            <th class="lead">@book.Quantity</th>
+            <th class="lead">@book.Price</th>
+                @{
+                    var SubTotal = @book.Quantity * @book.Price;
+                    @order.Total += SubTotal;
+                    <th class="pt-2">@SubTotal</th>
+                }
+            </tr>
+        }
+        <tr>Total: @order.Total $</tr>
+    }
   </table>
            

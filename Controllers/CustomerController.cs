@@ -58,35 +58,35 @@ namespace FPTBook.Controllers
       return View(bookList.AsEnumerable());
     }
 
-        public async Task<IActionResult> AddToCart(int id)
-        {
-            var currentUserId = _userManager.GetUserId(User);
-             var bookInStore = _context.Books.SingleOrDefault(t => t.BookId == id);
+    public async Task<IActionResult> AddToCart(int id)
+    {
+      var currentUserId = _userManager.GetUserId(User);
+      var bookInStore = _context.Books.SingleOrDefault(t => t.BookId == id);
+      var bookInCart = _context.Carts.SingleOrDefault(
+       t => t.UserId == currentUserId &&
+       t.BookId == id);
 
-          var bookInCart = _context.Carts.SingleOrDefault(
-              t => t.UserId == currentUserId &&
-              t.BookId == id);
-
-        if (bookInCart == null)
-        {
+      if (bookInCart == null)
+      {
         var cartItem = new Cart()
         {
           BookId = id,
+          Title = bookInStore.Title,
+          Author = bookInStore.Author,
+          Price = bookInStore.Price,
           UserId = currentUserId,
           Quantity = 1
-          };
-          _context.Add(cartItem);
-           await _context.SaveChangesAsync();
-        }
-        else
-        {
-          bookInCart.Quantity += 1;
-        }
-      
-         return RedirectToAction("Index");
-          }
+        };
+        _context.Add(cartItem);
+        await _context.SaveChangesAsync();
       }
-    
+      else
+      {
+        bookInCart.Quantity += 1;
+      }
+      return RedirectToAction("Index");
+    }
+  }
 
-    
-}
+
+  }

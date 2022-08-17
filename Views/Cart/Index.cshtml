@@ -1,5 +1,11 @@
 ﻿@model IEnumerable<Cart>
 
+<div class="form-group">
+  <a asp-controller="Customer" asp-action="Index" class="btn btn-outline-danger">
+    Back to Index
+  </a>
+</div>
+
 <div class="container-fluid">
     <div class="row px-5">
         <div class="col-md-7">
@@ -47,7 +53,7 @@
                             Total
                         </div>
                     </div>
-                    <a class="btn btn-warning">CHECK OUT</a>
+                    <a asp-controller="Cart" asp-action="CheckOut" class="btn btn-warning">CHECK OUT</a>
                 </div>
             </div>
         </div>

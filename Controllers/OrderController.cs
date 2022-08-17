@@ -21,7 +21,12 @@ namespace FPTBook.Controllers
 
     public IActionResult Index()
     {
-      return View();
+      var currentUserId = _userManager.GetUserId(User);
+      IEnumerable<Order> order = _context.Orders
+       .Include(t => t.CartList)
+       .Where(t=> t.UserId == currentUserId)
+       .ToList();
+      return View(order);
     }
 
   }
