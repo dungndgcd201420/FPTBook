@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
+using System.Collections.Generic;
 using System.Net;
 using System.Threading.Tasks;
 
@@ -18,12 +19,14 @@ namespace FPTBook.Controllers
         private readonly UserManager<ApplicationUser> _userManager;
 
         private readonly ApplicationDbContext _context;
+        private readonly IPasswordHasher<ApplicationUser> _passwordHash;
 
         public AdminController(
-          UserManager<ApplicationUser> userManager, ApplicationDbContext context)
+          UserManager<ApplicationUser> userManager, ApplicationDbContext context, IPasswordHasher<ApplicationUser> passwordHash)
         {
             _userManager = userManager;
             _context = context;
+            _passwordHash = passwordHash;
         }
         public IActionResult Index()
         {
@@ -43,35 +46,85 @@ namespace FPTBook.Controllers
             var usersWithPermission = _userManager.GetUsersInRoleAsync(Role.OWNER).Result;
             return View(usersWithPermission);
         }
-        [HttpGet]
-        public IActionResult ChangePassword(string id)
+
+        private void Errors(IdentityResult result)
         {
-            var user = _userManager.FindByIdAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View();
+            foreach (IdentityError error in result.Errors)
+                ModelState.AddModelError("", error.Description);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> ChangeStoreOwnerPassword(string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+                return View(user);
+            else
+                return RedirectToAction("Customers");
+        }
+        [HttpGet]
+        public async Task<IActionResult> ChangeCustomerPassword(string id)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+                return View(user);
+            else
+                return RedirectToAction("Customers");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ChangeCustomerPassword(string id, string password)
+        {
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            if (user != null)
+            {
+
+                if (!string.IsNullOrEmpty(password))
+                    user.PasswordHash = _passwordHash.HashPassword(user, password);
+                else
+                    ModelState.AddModelError("", "Password cannot be empty");
+
+                if (!string.IsNullOrEmpty(password))
+                {
+                    IdentityResult result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                        return RedirectToAction("Customers");
+                    else
+                        Errors(result);
+                }
+            }
+            else
+                ModelState.AddModelError("", "User Not Found");
+            return View(user);
+        }
+
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> ChangePassword(ResetPasswordViewModel model)
+        public async Task<IActionResult> ChangeStoreOwnerPassword(string id, string password)
         {
-            var user = await _userManager.FindByIdAsync(model.UserId);
-            if (user == null)
+            ApplicationUser user = await _userManager.FindByIdAsync(id);
+            if (user != null)
             {
-                return NotFound();
+
+                if (!string.IsNullOrEmpty(password))
+                    user.PasswordHash = _passwordHash.HashPassword(user, password);
+                else
+                    ModelState.AddModelError("", "Password cannot be empty");
+
+                if (!string.IsNullOrEmpty(password))
+                {
+                    IdentityResult result = await _userManager.UpdateAsync(user);
+                    if (result.Succeeded)
+                        return RedirectToAction("Customers");
+                    else
+                        Errors(result);
+                }
             }
+            else
+                ModelState.AddModelError("", "User Not Found");
+            return View(user);
 
-            user.PasswordHash = _userManager.PasswordHasher.HashPassword(user, model.NewPassword);
-            var result = await _userManager.UpdateAsync(user);
-
-            if (!result.Succeeded)
-            {
-                return View();
-            }
-
-            return View();
         }
     }
 }
