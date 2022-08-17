@@ -34,6 +34,8 @@
     <Compile Remove="Data\Migrations\20220816084533_AddOrder.Designer.cs" />
     <Compile Remove="Data\Migrations\20220816092101_AddOrder.cs" />
     <Compile Remove="Data\Migrations\20220816092101_AddOrder.Designer.cs" />
+    <Compile Remove="Data\Migrations\20220816094341_AddOrder.cs" />
+    <Compile Remove="Data\Migrations\20220816094341_AddOrder.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

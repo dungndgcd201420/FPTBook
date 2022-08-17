@@ -12,7 +12,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-using static IdentityServer3.Core.Events.EventConstants;
+
 
 namespace FPTBook.Controllers
 {

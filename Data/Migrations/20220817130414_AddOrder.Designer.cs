@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FPTBook.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220816094341_AddOrder")]
+    [Migration("20220817130414_AddOrder")]
     partial class AddOrder
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -125,7 +125,12 @@ namespace FPTBook.Data.Migrations
                     b.Property<float>("Total")
                         .HasColumnType("real");
 
+                    b.Property<string>("UserId")
+                        .HasColumnType("nvarchar(450)");
+
                     b.HasKey("OrderId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Orders");
                 });
@@ -402,6 +407,13 @@ namespace FPTBook.Data.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("FPTBook.Models.Order", b =>
+                {
+                    b.HasOne("FPTBook.Models.ApplicationUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
