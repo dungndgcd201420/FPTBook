@@ -8,8 +8,11 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+
+using static IdentityServer3.Core.Events.EventConstants;
 
 namespace FPTBook.Controllers
 {
@@ -126,5 +129,24 @@ namespace FPTBook.Controllers
             return View(user);
 
         }
+
+        /*public IActionResult ApproveGenre()
+        {
+
+        }
+
+        public IActionResult RejectGenre()
+        {
+
+        }
+
+        [HttpPost]
+        public IActionResult AddApprovedGenre()
+        {
+            IEnumerable<Genre> genres = _context.Genres.Where(t => t.)
+                    .Include(t => t.ApplicationUser)
+                    .ToList();
+            return View(genres);
+        }*/
     }
 }

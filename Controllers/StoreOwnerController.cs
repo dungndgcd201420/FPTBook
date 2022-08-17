@@ -159,6 +159,11 @@ namespace FPTBook.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
+
+        /*public IActionResult GenreRequest(string desc)
+        {
+            
+        }*/
     }
 
  
