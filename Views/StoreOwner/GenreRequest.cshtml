@@ -13,9 +13,14 @@
   </a>
 </div>
 
-<h2 class="display-2">Send a new genre request to Admin</h2>
+<h3 class="display-3 text-center">Send a new genre request to Admin</h3>
 
 <form asp-controller="StoreOwner" asp-action="GenreRequest" method="post">
+    <div class="form-group">
+        <label hidden>Id</label>
+        <input asp-for="Id" class="form-control" placeholder="Id" hidden/>
+    </div>
+
     <div class="form-group">
         <label>Description</label>
         <input asp-for="Description" class="form-control" placeholder="Description" />
@@ -23,7 +28,7 @@
 
     <div class="form-group">
         <label>Status</label>
-        <select asp-for="Status" asp-items="Html.GetEnumSelectList<GenreApproval>()" class="form-control"></select>
+        <input asp-for="Status" class="form-control" placeholder="Pending" disabled/>
     </div>
     
     <div class="form-group">

@@ -163,32 +163,32 @@ namespace FPTBook.Controllers
         [HttpGet]
         public IActionResult GenreList()
         {
-            IEnumerable<Genre> genres = _context.Genres.Include(t => t.Status).ToList();
+            IEnumerable<Genre> genres = _context.Genres.ToList();
 
             return View(genres);
         }
-
         [HttpGet]
-        public async Task<IActionResult> GenreRequest(int id, string description)
+        public IActionResult GenreRequest()
         {
-            var genreInDb = _context.Genres.SingleOrDefault(t => t.Id == id);
-            if (genreInDb == null)
-            {
-                return NotFound();
-            }
+            return View();
+        }
 
+        [HttpPost]
+        public async Task<IActionResult> GenreRequest(int id, string description)
+        { 
             Genre genre = new Genre()
             {
-                    Id = id,
-                    Description = description,
-                    Status = Enums.GenreApproval.pending
+                Id = id,
+                Description = description,
+                Status = Enums.GenreApproval.pending
             };
             _context.Add(genre);
-            
+
             return View("GenreList");
         }
     }
+}
 
  
-}
+
 

@@ -1,0 +1,36 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+@model IEnumerable<Genre>
+
+<div class="form-group">
+    <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-outline-danger">
+        Back to Index
+    </a>
+</div>
+
+<h1 class="display-2 text-center">List of Genres</h1>
+<a asp-controller="StoreOwner" asp-action="GenreRequest" class="btn btn-primary text-center">Request a new genre</a>
+
+<table class="table">
+    <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Description</td>
+                <td class="text-primary">@item.Status</td>
+            </tr>
+
+
+        }
+    </tbody>
+</table>
