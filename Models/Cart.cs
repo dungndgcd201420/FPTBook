@@ -17,6 +17,5 @@ namespace FPTBook.Models
         public int Quantity { get; set; }
         [Required]
         public ApplicationUser User { get; set; }
-        public DateTime OrderedAt { get; set; } = DateTime.Now;
     }
 }

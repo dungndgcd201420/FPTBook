@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace FPTBook.Controllers
 {
@@ -24,10 +25,32 @@ namespace FPTBook.Controllers
       var currentUserId = _userManager.GetUserId(User);
       IEnumerable<Order> order = _context.Orders
        .Include(t => t.CartList)
-       .Where(t=> t.UserId == currentUserId)
+       .Where(t=> t.UserId == currentUserId && t.OrderStatus == Enums.OrderStatus.notPaid)
        .ToList();
       return View(order);
     }
+    public async Task<IActionResult> FinishPayment(int id)
+    {
+      var currentUserId = _userManager.GetUserId(User);
+      var order = _context.Orders.SingleOrDefault(t => t.OrderId == id);
 
+      var cartOfCurrentOrder = _context.Carts.Include(t => t.Book).Where(t => t.UserId == currentUserId);
+      var cartInDb = _context.Carts;
+   
+      if (order == null)
+      {
+        return NotFound();
+
+      }
+      order.OrderStatus = Enums.OrderStatus.paid;
+
+      foreach (var book in cartOfCurrentOrder)
+      {
+        cartInDb.Remove(book);
+      }
+
+      await _context.SaveChangesAsync();
+      return RedirectToAction("Index", "Customer");
+    }
   }
 }

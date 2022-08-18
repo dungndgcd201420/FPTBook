@@ -76,29 +76,46 @@ namespace FPTBook.Controllers
 
     }
     public async Task<IActionResult> CheckOut()
-    {
+    { 
+     
+
       var currentUserId = _userManager.GetUserId(User);
       var orderInDb = _context.Orders;
-      var orders = _context.Orders
+
+      var ordersNotPaid = _context.Orders
       .Include(t => t.CartList)
-      .Where(t => t.UserId == currentUserId)
+      .Where(t => t.UserId == currentUserId && t.OrderStatus == Enums.OrderStatus.notPaid)
       .ToList();
+
       var cartBooks = _context.Carts
         .Include(t => t.Book)
         .Where(t => t.UserId == currentUserId)
         .ToList();
-      if (!orders.Any())
+
+      float total = 0;
+
+     
+      //Remove all the unpaid
+      foreach(var order in ordersNotPaid)
       {
-        var newOrder = new Order()
-        {
-          CartList = cartBooks,
-          Total = 0,
-          OrderStatus = Enums.OrderStatus.notPaid,
-          UserId = currentUserId
-        };
-        orderInDb.Add(newOrder);
+        orderInDb.Remove(order);
         await _context.SaveChangesAsync();
       }
+      //Get total
+      foreach (var book in cartBooks)
+      {
+        total += (book.Price * book.Quantity);
+      }
+      //Add New Order
+        var newOrder = new Order()
+          {
+            CartList = cartBooks,
+            Total = total,
+            OrderStatus = Enums.OrderStatus.notPaid,
+            UserId = currentUserId
+          };
+          orderInDb.Add(newOrder);
+          await _context.SaveChangesAsync();
 
       return RedirectToAction("Index", "Order");
 

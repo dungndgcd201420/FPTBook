@@ -24,15 +24,16 @@
          
                 @{
                     var SubTotal = @book.Quantity * @book.Price;
-                    @order.Total += SubTotal;
                         <div class="pt-2">@SubTotal</div>
                 }
                 </div>
             </div>
         }
         <div>Total: @order.Total $</div>
-    }
-</div>    
+         <a asp-controller="Order" asp-action="FinishPayment" asp-route-id="@order.OrderId">FINISH PAYMENT</a>
+            }
+  
+</div>     
     
 
            
