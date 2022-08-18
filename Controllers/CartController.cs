@@ -32,8 +32,15 @@ namespace FPTBook.Controllers
             .Include(t=> t.Book)
             .Where(t => t.UserId == currentUserId)
             .ToList();
-
-      return View(booksInCart);
+      if (!booksInCart.Any())
+      {
+        return NotFound();
+      }
+      else
+      {
+        return View(booksInCart);
+      }
+     
     }
 
     public IActionResult QuantityUp(int id)

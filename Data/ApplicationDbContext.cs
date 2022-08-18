@@ -20,6 +20,7 @@ namespace FPTBook.Data
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Cart> Carts { get; set; }
     public DbSet<Order> Orders { get; set; }
+    public DbSet<Profile> Profiles { get; set; }
     protected override void OnModelCreating(ModelBuilder builder)
     {
       base.OnModelCreating(builder);

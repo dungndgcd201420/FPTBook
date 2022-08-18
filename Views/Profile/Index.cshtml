@@ -1,0 +1,31 @@
+﻿@model IEnumerable<Profile>
+
+<div class="form-group">
+    <a asp-controller="Home" asp-action="Index" class="btn btn-outline-danger">
+        Back
+    </a>
+</div>
+
+<div>
+    @foreach (var profile in Model)
+    {
+        <div class="col-md-6">
+            <h5 class="pt-2" style="font-weight= bold;">Full Name: @profile.User.FullName</h5>
+            <h5 class="pt-2" style="font-weight= bold;">Email: @profile.User.Email</h5>
+            <h5 class="pt-2" style="font-weight= bold;">User Address: @profile.User.Address</h5>
+        </div>
+        <div class="col-md-6">
+            @if (profile.Orders != null)
+           {
+                @foreach (var order in profile.Orders)
+                {
+                    <h5 class="pt-2" style="font-weight= bold;">OrderId: @order.OrderId</h5>
+                    <h5 class="pt-2" style="font-weight= bold;">Total: @order.Total</h5>
+                    <h5 class="pt-2" style="font-weight= bold;">Date: @order.FinishedAt</h5>
+                }
+            }
+        
+        </div>
+    }
+  
+</div>     
