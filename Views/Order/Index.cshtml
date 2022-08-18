@@ -1,36 +1,38 @@
 ﻿@model IEnumerable<Order>
+
 <div class="form-group">
   <a asp-controller="Cart" asp-action="Index" class="btn btn-outline-danger">
     Back to Index
   </a>
 </div>
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Book Title</th>
-      <th scope="col">Quantity</th>
-      <th scope="col">Price</th>
-      <th scope="col">Sub Total</th>
-    </tr>
-  </thead>
-    
+<div>
     @foreach (var order in Model)
     {
         @foreach (var book in order.CartList)
         {
-            <tr>
-            <th class="lead">@book.Title</th>
-            <th class="lead">@book.Quantity</th>
-            <th class="lead">@book.Price</th>
+            <div class="border rounded">
+                <div class="row bg-white">
+                    <div class="col-md-3 pl-0">
+                        <img class="img-fluid" src="@ViewBag.ImageUrl">
+                    </div>
+                    <div class="col-md-6">
+                        <h5 class="pt-2" style="font-weight= bold;">@book.Title</h5>
+                        <h5 class="pt-2" style="font-weight= bold;">@book.Quantity</h5>
+                        <h5 class="pt-2" style="font-weight= bold;">$ @book.Price</h5>
+                    </div>
+         
                 @{
                     var SubTotal = @book.Quantity * @book.Price;
                     @order.Total += SubTotal;
-                    <th class="pt-2">@SubTotal</th>
+                        <div class="pt-2">@SubTotal</div>
                 }
-            </tr>
+                </div>
+            </div>
         }
-        <tr>Total: @order.Total $</tr>
+        <div>Total: @order.Total $</div>
     }
-  </table>
+</div>    
+    
+
            
