@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace FPTBook.Controllers
@@ -20,7 +21,7 @@ namespace FPTBook.Controllers
         private ApplicationDbContext _context;
         public StoreOwnerController(ApplicationDbContext context)
         {
-          _context = context;
+            _context = context;
         }
         public IActionResult Index(string genre)
         {
@@ -159,11 +160,33 @@ namespace FPTBook.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
-
-        /*public IActionResult GenreRequest(string desc)
+        [HttpGet]
+        public IActionResult GenreList()
         {
+            IEnumerable<Genre> genres = _context.Genres.Include(t => t.Status).ToList();
+
+            return View(genres);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GenreRequest(int id, string description)
+        {
+            var genreInDb = _context.Genres.SingleOrDefault(t => t.Id == id);
+            if (genreInDb == null)
+            {
+                return NotFound();
+            }
+
+            Genre genre = new Genre()
+            {
+                    Id = id,
+                    Description = description,
+                    Status = Enums.GenreApproval.pending
+            };
+            _context.Add(genre);
             
-        }*/
+            return View("GenreList");
+        }
     }
 
  

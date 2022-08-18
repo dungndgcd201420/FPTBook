@@ -4,8 +4,38 @@
 @{
 }
 
+@model IEnumerable<Genre>
+
 <div class="form-group">
   <a asp-controller="Admin" asp-action="Index" class="btn btn-outline-danger">
     Back to Index
   </a>
 </div>
+
+<table class="table">
+    <thead>
+        <th scope="col">ID</th>
+        <th scope="col">Description</th>
+        <th scope="col">Status</th>
+        <th scope="col">Actions</th>
+
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <th scope="row">@item.Id</th>
+                <td>@item.Description</td>
+                <td class="text-primary">@item.Status</td>
+                <td>
+                    <a asp-controller="Admin"
+                   asp-action="ApproveGenre" class="btn btn-outline-success" asp-route-id=@item.Id>Approve</a>
+                    <a asp-controller="Admin"
+                   asp-action="RejectGenre" class="btn btn-outline-danger" asp-route-id=@item.Id>Reject</a>
+                </td>
+            </tr>
+
+
+        }
+    </tbody>
+</table>

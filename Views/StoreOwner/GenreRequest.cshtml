@@ -4,8 +4,29 @@
 @{
 }
 
+@using FPTBook.Enums
+@model Genre
+
 <div class="form-group">
   <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-outline-danger">
     Back to Index
   </a>
 </div>
+
+<h2 class="display-2">Send a new genre request to Admin</h2>
+
+<form asp-controller="StoreOwner" asp-action="GenreRequest" method="post">
+    <div class="form-group">
+        <label>Description</label>
+        <input asp-for="Description" class="form-control" placeholder="Description" />
+    </div>
+
+    <div class="form-group">
+        <label>Status</label>
+        <select asp-for="Status" asp-items="Html.GetEnumSelectList<GenreApproval>()" class="form-control"></select>
+    </div>
+    
+    <div class="form-group">
+        <button type="submit" class="btn btn-outline-primary">Send Request</button>
+    </div>
+</form>
