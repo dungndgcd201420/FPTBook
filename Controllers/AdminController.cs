@@ -148,7 +148,7 @@ namespace FPTBook.Controllers
             genreInDb.Status = Enums.GenreApproval.approved;
             
             _context.SaveChanges();
-            return RedirectToAction("PendingGenres");
+            return RedirectToAction("GenreApproval");
         }
 
 
@@ -163,7 +163,7 @@ namespace FPTBook.Controllers
             genreInDb.Status = Enums.GenreApproval.rejected;
 
             _context.SaveChanges();
-            return RedirectToAction("PendingGenres");
+            return RedirectToAction("GenreApproval");
         }
 
        

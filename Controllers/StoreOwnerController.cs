@@ -184,6 +184,7 @@ namespace FPTBook.Controllers
             };
             _context.Add(genre);
 
+            await _context.SaveChangesAsync();
             return View("GenreList");
         }
     }

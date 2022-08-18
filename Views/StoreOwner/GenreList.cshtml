@@ -15,6 +15,7 @@
 <h1 class="display-2 text-center">List of Genres</h1>
 <a asp-controller="StoreOwner" asp-action="GenreRequest" class="btn btn-primary text-center">Request a new genre</a>
 
+
 <table class="table">
     <thead>
         <th scope="col">ID</th>
@@ -27,10 +28,11 @@
             <tr>
                 <th scope="row">@item.Id</th>
                 <td>@item.Description</td>
-                <td class="text-primary">@item.Status</td>
+                @if ((int)item.Status == 0){<td class="text-success text-uppercase">@item.Status</td>}
+                else @if ((int)item.Status == 1){<td class="text-primary text-uppercase">@item.Status</td>}
+                else {<td class="text-danger text-uppercase">@item.Status</td>}
+                    
             </tr>
-
-
         }
     </tbody>
 </table>
