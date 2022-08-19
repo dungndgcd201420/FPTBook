@@ -11,15 +11,19 @@
         border-left: 6px solid #0B5ED7;
         transition: 0.5s;
     }
-    input:focus {
-        border: 3px solid #0B5ED7;
-    }
-    input:hover {
-        background-color: rgb(200, 225, 247);
-    }
+
+        input:focus {
+            border: 3px solid #0B5ED7;
+        }
+
+        input:hover {
+            background-color: rgb(200, 225, 247);
+        }
+
     label {
         border: none;
     }
+
     input[type=submit] {
         cursor: pointer;
         width: 100%;
@@ -28,9 +32,9 @@
 </style>
 
 <div class="form-group">
-  <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-outline-danger">
-    Back to Index
-  </a>
+    <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-outline-danger">
+        Back to Index
+    </a>
 </div>
 
 <h1 class="display-1 text-center">Update book's details</h1>
@@ -54,14 +58,14 @@
         <span asp-validation-for="Book.Price" class="text-danger"></span>
     </div>
     <div class="form-group">
-    <label>Status</label>
+        <label>Status</label>
         <select asp-for="Book.BookStatus" asp-items="Html.GetEnumSelectList<BookStatus>()" class="form-control">
         </select>
     </div>
     <div class="form-group">
         <label>Genre</label>
         <select asp-for="Book.GenreId"
-                asp-items="@(new SelectList(Model.Genres, "Id", "Description"))"
+                asp-items="@(new SelectList(Model.Genres.Where(t => (int)t.Status == 0), "Id", "Description"))"
                 class="form-control">
         </select>
     </div>
@@ -72,7 +76,7 @@
                 <label asp-for="@Model.FormFile"></label>
             </dt>
             <dd>
-                <input asp-for="@Model.FormFile" type="file">
+                <input asp-for="@Model.FormFile" type="file" value="">
             </dd>
         </dl>
     </div>
