@@ -4,50 +4,127 @@
 }
 
 <style>
-    .container{
-       position: relative;
+    .container {
+        position: relative;
     }
-    .hero-image{
-       filter: blur(2px);
-       width: 100%;
+
+    .hero-image {
+        filter: blur(2px);
+        width: 100%;
     }
-    .hero-text{
-       text-align: center;
-       position: absolute;
-       top: 50%;
-       left: 50%;
-       transform: translate(-50%, -50%);
-       color: white;
+
+    .hero-text {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
     }
+
 </style>
 
 
-   @if (!User.Identity.IsAuthenticated)
-  {
-    <h3 class="text-center">Register for New User</h3>
-    <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-secondary text-center">Register your account</a>
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="jumbotron jumbotron-fluid">
+        <div class="row">
+            <div class="d-flex flex-column col">
+                <div class="container">
+                    <h1 class="display-4">Are you new here ?</h1>
+                    <p class="lead">Be one of our users</p>
+                </div>
+                <hr class="my-4">
+                <a asp-area="Identity" asp-page="/Account/Register" class="btn btn-primary btn-lg" role="button">Register now</a>
+            </div>
+
+            <div class="d-flex flex-column col">
+                <div class="container">
+                    <h1 class="display-4">Been here before ?</h1>
+                    <p class="lead">Sign in to your account</p>
+                </div>
+                <hr class="my-4">
+                <a asp-area="Identity" asp-page="/Account/Login" class="btn btn-primary btn-lg" role="button">Login now</a>
+            </div>
+        </div>
+
+    </div>
 }
-else{
+else
+{
     if (User.IsInRole(Role.CUSTOMER))
     {
         <div class="container">
-        <img class="hero-image" src="https://images.pexels.com/photos/214659/pexels-photo-214659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
-        <div class="hero-text">
-        <h1 class="display-2">FPTBook</h1>
-        <p class="display-4">All you can find</p>
+            <img class="hero-image" src="https://images.pexels.com/photos/214659/pexels-photo-214659.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" />
+            <div class="hero-text">
+                <h1 class="display-2">FPTBook</h1>
+                <p class="display-4">All you can find</p>
                 <a asp-controller="Customer" asp-action="Index" class="btn btn-primary">Shop now</a>
-      </div>
-     </div>
-        }
-        if (User.IsInRole(Role.ADMIN))
-        {
-            <a asp-controller="Admin" asp-action="Index" class="btn btn-primary">Manage Admin</a>
-        }
-        if (User.IsInRole(Role.OWNER))
-        {
-            <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-primary">Manage Store</a>
-        }
-  }
- 
-   
-   
+            </div>
+        </div>
+    }
+    if (User.IsInRole(Role.ADMIN))
+    {
+        <h2 class="display-2 text-center">Welcome Admin</h2>
+        <div class="jumbotron jumbotron-fluid">
+            <div class="row">
+                <div class="d-flex flex-column col">
+                    <div class="container">
+                        <h1 class="display-4" style="text-align: center;">User Accounts Management</h1>
+                        <p class="lead">See all customer and store owner account - Reset passwords</p>
+                    </div>
+                    <hr class="my-4">
+                    <a asp-controller="Admin" asp-action="Index" class="btn btn-primary btn-lg" role="button">Manage</a>
+                </div>
+
+                <div class="d-flex flex-column col">
+                    <div class="container">
+                        <h1 class="display-4" style="text-align: center;">Genre Request Approval</h1>
+                        <p class="lead">Approve or Reject genre request sent by Store Owner</p>
+                    </div>
+                    <hr class="my-4">
+                    <a asp-controller="Admin" asp-action="GenreApproval" class="btn btn-primary btn-lg" role="button">See Request</a>
+                </div>
+            </div>
+        </div>
+
+    }
+    if (User.IsInRole(Role.OWNER))
+    {
+        <h2 class="display-2 text-center">Welcome Store Owner</h2>
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="row">
+                <div class="d-flex flex-column col">
+                    <div class="container">
+                        <h1 class="display-4" style="text-align: center;">Books Management</h1>
+                        <p class="lead">Insert, Update, See details or Delete books</p>
+                    </div>
+                    <hr class="my-4">
+                    <a asp-controller="StoreOwner" asp-action="Index" class="btn btn-primary btn-lg" role="button">Manage</a>
+                </div>
+
+                <div class="d-flex flex-column col">
+                    <div class="container">
+                        <h1 class="display-4" style="text-align: center;">Genre Request</h1>
+                        <p class="lead">See all genres and send genre request to Admin</p>
+                    </div>
+                    <hr class="my-4">
+                    <a asp-controller="StoreOwner" asp-action="GenreList" class="btn btn-primary btn-lg" role="button">Manage</a>
+                </div>
+
+                <div class="d-flex flex-column col">
+                    <div class="container">
+                        <h1 class="display-4" style="text-align: center;">Orders Management</h1>
+                        <p class="lead">See all past orders made by customers</p>
+                    </div>
+                    <hr class="my-4">
+                    <a asp-controller="StoreOwner" asp-action="OrderList" class="btn btn-primary btn-lg" role="button">View</a>
+                </div>
+            </div>
+        </div>
+
+    }
+}
+
+
