@@ -79,9 +79,8 @@ namespace FPTBook.Controllers
         {
             var currentUserId = _userManager.GetUserId(User);
             var bookInStore = _context.Books.SingleOrDefault(t => t.BookId == id);
-            var bookInCart = _context.Carts.SingleOrDefault(
-             t => t.UserId == currentUserId &&
-             t.BookId == id);
+            var bookInCart = _context.Carts
+        .SingleOrDefault(t => t.BookId == id && t.UserId == currentUserId);
 
             if (bookInCart == null)
             {
@@ -94,13 +93,14 @@ namespace FPTBook.Controllers
                     UserId = currentUserId,
                     Quantity = 1
                 };
-                _context.Add(cartItem);
+                _context.Carts.Add(cartItem);
                 await _context.SaveChangesAsync();
             }
-            else
+            else if (bookInCart != null)
             {
-                bookInCart.Quantity += 1;
-            }
+              bookInCart.Quantity++;
+              await _context.SaveChangesAsync();
+      }
             return RedirectToAction("Index");
         }
 
