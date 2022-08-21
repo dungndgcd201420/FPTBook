@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Profile>
+﻿@model Profile
 
 <div class="form-group">
 
@@ -11,24 +11,23 @@
 </div>
 
 <div class="row">
-    @foreach (var profile in Model)
-    {
+   
         <div class="col-5">
             <p class="display-4">Customer's Info</p>
             <div class="card" style="width: 18rem;">
                 <div class="card-body">
-                    <h5 class="card-title">@profile.User.FullName</h5>
-                    <h6 class="card-subtitle mb-2 text-muted">@profile.User.Email</h6>
-                    <span class="lead">Address: <span class="lead font-italic">@profile.User.Address</span></span>
+                    <h5 class="card-title">@Model.User.FullName</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@Model.User.Email</h6>
+                    <span class="lead">Address: <span class="lead font-italic">@Model.User.Address</span></span>
                 </div>
             </div>
         </div>
 
         <div class="col-7">
             <p class="display-4">Customer's Past Orders</p>
-            @if (profile.Orders != null)
+            @if (Model.Orders != null)
             {
-                @foreach (var order in profile.Orders)
+                @foreach (var order in Model.Orders)
                 {
                     <h5 class="lead">OrderId: @order.OrderId <span class="badge badge-primary">Total: <span class="badge badge-light">$@order.Total</span></span></h5>
                     <h5 class="pt-2">Order was paid at: @order.FinishedAt</h5>
@@ -39,6 +38,6 @@
             }
         
         </div>
-    }
+    
   
 </div>     
