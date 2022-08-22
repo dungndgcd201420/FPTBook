@@ -137,6 +137,7 @@ namespace FPTBook.Controllers
                                                 .ToList();
             return View(genres);
         }
+
         public IActionResult ApproveGenre(int id)
         {
             var genreInDb = _context.Genres.SingleOrDefault(t => t.Id == id);
@@ -146,11 +147,17 @@ namespace FPTBook.Controllers
             }
 
             genreInDb.Status = Enums.GenreApproval.approved;
+
+            Notification noti = new Notification
+            {
+                Message = "Your genre request for " + genreInDb.Description + " has been approved",
+                NotiStatus = Enums.NotiCheck.unSeen
+            };
+            _context.Add(noti);
             
             _context.SaveChanges();
             return RedirectToAction("GenreApproval");
         }
-
 
         public IActionResult RejectGenre(int id)
         {
@@ -161,6 +168,13 @@ namespace FPTBook.Controllers
             }
 
             genreInDb.Status = Enums.GenreApproval.rejected;
+
+            Notification noti = new Notification
+            {
+                Message = "Your genre request for " + genreInDb.Description + " has been rejected",
+                NotiStatus = Enums.NotiCheck.unSeen
+            };
+            _context.Add(noti);
 
             _context.SaveChanges();
             return RedirectToAction("GenreApproval");

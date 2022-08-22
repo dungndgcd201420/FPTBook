@@ -23,11 +23,12 @@
     </div>
 </div>
 
+
 <table class="table">
     <thead>
-        <th scope="col">ID</th>
-        <th scope="col">Description</th>
-        <th scope="col">Status</th>
+    <th scope="col">ID</th>
+    <th scope="col">Description</th>
+    <th scope="col">Status</th>
     </thead>
     <tbody>
         @foreach (var item in Model)
@@ -35,11 +36,22 @@
             <tr>
                 <th scope="row">@item.Id</th>
                 <td>@item.Description</td>
-                @if ((int)item.Status == 0){<td class="text-success text-uppercase">@item.Status</td>}
-                else @if ((int)item.Status == 1){<td class="text-primary text-uppercase">@item.Status</td>}
-                else {<td class="text-danger text-uppercase">@item.Status</td>}
-                    
+                @if ((int)item.Status == 1)
+                {
+                    <td class="text-primary text-uppercase font-weight-bold">@item.Status</td>
+                }
+                else @if ((int)item.Status == 0)
+                {
+                    <td class="text-success text-uppercase font-weight-bold">@item.Status</td>
+                }
+                else
+                {
+                    <td class="text-danger text-uppercase font-weight-bold">@item.Status</td>
+                }
+
             </tr>
         }
     </tbody>
 </table>
+
+

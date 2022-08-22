@@ -189,6 +189,19 @@ namespace FPTBook.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("GenreList");
         }
+        public IActionResult ReadMessage(int id)
+        {
+            var notiInDb = _context.Notifications.SingleOrDefault(t => t.NotiId == id);
+            if (notiInDb is null)
+            {
+                return BadRequest();
+            }
+
+            notiInDb.NotiStatus = Enums.NotiCheck.seen;
+
+            _context.SaveChanges();
+            return RedirectToAction("Index", "Home");
+        }
         public async Task<IActionResult> OrderList()
         {
             var orderList = _context.Orders.Include(t=> t.CartList).ToList();
