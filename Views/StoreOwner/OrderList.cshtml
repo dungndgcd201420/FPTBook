@@ -22,13 +22,13 @@
         <th scope="col">Customer ID</th>
         <th scope="col">Order Total</th>
         <th scope="col">Order Paid At</th>
-    </thead>
+    </th>
     <tbody>
         @foreach (var order in Model)
         {
 
             <tr>
-                <th scope="row">@order.UserId</th>
+                <td scope="row">@order.UserId</td>
                 <td>@order.Total</td>
                 <td>@order.FinishedAt</td>
             </tr>

@@ -64,7 +64,7 @@ namespace FPTBook.Controllers
             if (user != null)
                 return View(user);
             else
-                return RedirectToAction("Customers");
+                return RedirectToAction("StoreOwners");
         }
         [HttpGet]
         public async Task<IActionResult> ChangeCustomerPassword(string id)
@@ -120,7 +120,7 @@ namespace FPTBook.Controllers
                 {
                     IdentityResult result = await _userManager.UpdateAsync(user);
                     if (result.Succeeded)
-                        return RedirectToAction("Customers");
+                        return RedirectToAction("StoreOwners");
                     else
                         Errors(result);
                 }
