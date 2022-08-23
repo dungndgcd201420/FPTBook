@@ -205,14 +205,20 @@ namespace FPTBook.Controllers
         [HttpPost]
         public async Task<IActionResult> GenreRequest(int id, string description)
         { 
+          if(description != null)
+          {
             Genre genre = new Genre()
-            {
-                Id = id,
-                Description = description,
-                Status = Enums.GenreApproval.pending
-            };
-            _context.Add(genre);
-
+             {
+              Id = id,
+              Description = description,
+              Status = Enums.GenreApproval.pending
+             };
+        _context.Add(genre);
+          }
+          else
+          {
+            return RedirectToAction("GenreRequest");
+          }
             await _context.SaveChangesAsync();
             return RedirectToAction("GenreList");
         }
