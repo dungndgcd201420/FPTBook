@@ -1,5 +1,7 @@
 ﻿using FPTBook.Data;
 using FPTBook.Models;
+using FPTBook.Utils;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace FPTBook.Controllers
 {
+  [Authorize(Roles = Role.CUSTOMER)] 
   public class ProfileController : Controller
   {
     private ApplicationDbContext _context;
